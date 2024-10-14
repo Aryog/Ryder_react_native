@@ -7,7 +7,8 @@ import { onboarding } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 const Onboarding = () => {
   const swiperRef = useRef<Swiper>(null);
-  const [acitveIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isLastSlide = activeIndex === onboarding.length - 1;
   return (<SafeAreaView className="flex h-full items-center justify-between bg-white">
     <TouchableOpacity onPress={() => { router.replace("/(auth)/sign-up") }} className="w-full flex justify-end items-end p-5">
       <Text className="text-black text-md font-JakartaBold">Skip</Text>
@@ -31,7 +32,8 @@ const Onboarding = () => {
         )
         )}
     </Swiper>
-    <CustomButton title="Next" className="w-11/12 mt-10" />
+    <CustomButton title={isLastSlide ? "Get Started" : "Next"} onPress={() => isLastSlide ? router.replace('/(auth)/sign-up') : swiperRef.current?.scrollBy(1)}
+      className="w-11/12 mt-10" />
   </SafeAreaView>)
 }
 export default Onboarding;
