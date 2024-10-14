@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import CustomButton from "./CustomButton";
 import { icons } from "@/constants";
 const OAuth = () => {
-	const handleGoogleSignIn = async () => { }
+	const handleGoogleSignIn = async () => { };
 	return (
 		<View>
 			<View className="flex flex-row justify-center items-center mt-4 gap--3">
