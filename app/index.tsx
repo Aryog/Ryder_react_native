@@ -6,6 +6,6 @@ const Home = () => {
   if (isSignedIn) {
     return <Redirect href={'/(root)/(tabs)/home'} />
   }
-  return <Redirect href="/(auth)/welcome" />;
+  return <Redirect href={'/(auth)/welcome'} />;
 }
 export default Home;

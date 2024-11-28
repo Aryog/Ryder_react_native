@@ -16,7 +16,7 @@ const TabIcon = ({ source, focused }: { source: ImageSourcePropType; focused: bo
 const Layout = () => {
 	return (
 		<Tabs
-			initialRouteName="index"
+			// initialRouteName="index"
 			screenOptions={{
 				tabBarActiveTintColor: 'white',
 				tabBarInactiveTintColor: 'white',
