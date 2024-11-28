@@ -3,12 +3,13 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
-import { Slot } from 'expo-router'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import { tokenCache } from '@/lib/auth';
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -22,30 +23,48 @@ export default function RootLayout() {
     "Jakarta-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   });
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
 
+  // Additional safety checks
   if (!loaded) {
     return null;
   }
+
   if (!publishableKey) {
     throw new Error(
-      'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
-    )
+      'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env'
+    );
   }
-  return (
 
-    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
-      <ClerkLoaded>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(root)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ClerkLoaded>
-    </ClerkProvider>);
+  return (
+    <SafeAreaProvider>
+      <ClerkProvider
+        tokenCache={tokenCache}
+        publishableKey={publishableKey}
+      >
+        <ClerkLoaded>
+          <Stack
+            screenOptions={{
+              contentStyle: {
+                flex: 1, // Ensure full screen coverage
+                backgroundColor: 'transparent' // Allow underlying styles to show
+              },
+              headerShown: false // Hide headers across all screens
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(root)" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ClerkLoaded>
+      </ClerkProvider>
+      <StatusBar style="auto" />
+    </SafeAreaProvider>
+  );
 }

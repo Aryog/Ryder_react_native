@@ -1,10 +1,10 @@
 import { useUser } from '@clerk/clerk-expo'
 import RideCard from '@/components/RideCard'
 import { useEffect, useState } from 'react'
-import { FlatList, View, Text, Image, ActivityIndicator, TouchableOpacity, Loc } from 'react-native'
+import { FlatList, View, Text, Image, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images, icons } from '@/constants'
-import GoogleTextInput from '@/components/GoogleTextInput'
+import MapboxPlacesAutocomplete from '@/components/GoogleTextInput'
 import Map from '@/components/Map'
 import { useLocationStore } from '@/store'
 import * as Location from "expo-location"
@@ -162,7 +162,7 @@ export default function Page() {
 							</TouchableOpacity>
 						</View>
 						{/* Google Text Input*/}
-						<GoogleTextInput icon={icons.search} containerStyle="bg-white shadow-md shadow-neutral-400" handlePress={handleDestinationPress} />
+						<MapboxPlacesAutocomplete icon={icons.search} containerStyle="bg-white shadow-md shadow-neutral-400" handlePress={handleDestinationPress} />
 						<>
 							<Text className='text-xl font-JakartaBold mt-5 mb-3'> Your Current Location </Text>
 							<View className='flex flex-row items-center h-[300px]'>

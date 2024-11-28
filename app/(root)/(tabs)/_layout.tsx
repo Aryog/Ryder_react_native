@@ -5,7 +5,7 @@ import { Image, ImageSourcePropType, View } from "react-native";
 
 const TabIcon = ({ source, focused }: { source: ImageSourcePropType; focused: boolean }) => {
 	return (
-		<View className={`flex flex-row justify-center items-center rounded-full ${focused ? 'bg-general-300' : ''}`}>
+		<View className={`flex-row justify-center items-center rounded-full w-full h-full ${focused ? 'bg-general-300' : ''}`}>
 			<View className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}>
 				<Image source={source} tintColor="white" resizeMode="contain" className="w-7 h-7" />
 			</View>
@@ -16,7 +16,6 @@ const TabIcon = ({ source, focused }: { source: ImageSourcePropType; focused: bo
 const Layout = () => {
 	return (
 		<Tabs
-			// initialRouteName="index"
 			screenOptions={{
 				tabBarActiveTintColor: 'white',
 				tabBarInactiveTintColor: 'white',
@@ -24,18 +23,20 @@ const Layout = () => {
 				tabBarStyle: {
 					backgroundColor: "#333333",
 					borderRadius: 50,
-					paddingBottom: 0,
+					paddingBottom: 20,
 					overflow: "hidden",
 					marginHorizontal: 20,
 					marginBottom: 20,
 					height: 75,
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
+					position: "absolute",
+					left: 20,
+					right: 20,
+					bottom: 0,
 					flexDirection: "row",
-					position: "absolute"
+					alignItems: "center",
+					justifyContent: "space-between",
+					paddingHorizontal: 10
 				}
-
 			}}
 		>
 			<Tabs.Screen
